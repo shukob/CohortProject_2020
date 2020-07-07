@@ -2,3 +2,5 @@
 !/CDL_2020_docs.tex
 !/CDL_2020_docs.pdf
 /*.svg
+.idea
+*.pyc

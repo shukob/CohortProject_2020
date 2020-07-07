@@ -117,7 +117,8 @@ class RBM():
 
     def save_params(self, dir):
         pathdir = Path(dir)
-        pathdir.mkdirs()
+        if not pathdir.exists():
+            pathdir.mkdir(parents=True)
 
         torch.save(self.weights, pathdir / 'weights.pt')
         torch.save(self.visible_bias, pathdir / 'visible_bias.pt')
