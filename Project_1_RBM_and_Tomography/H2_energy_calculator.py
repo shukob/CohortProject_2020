@@ -20,7 +20,6 @@ def energy_from_freq(samples, coeff):
     
     diag = c1*one(f) + c2*Z0(f) + c3*Z1(f) + c4*Z0Z1(f) 
     off_diag = -c5*(2*np.sqrt(f)[[1,2]].prod() + 2*np.sqrt(f)[[0,3]].prod()) - c5*(2*np.sqrt(f)[[1,2]].prod() - 2*np.sqrt(f)[[0,3]].prod())
-
     return diag + off_diag
 
 def one(freq):
