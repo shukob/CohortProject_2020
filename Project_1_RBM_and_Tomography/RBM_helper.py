@@ -177,7 +177,5 @@ class RBM():
         space = self.generate_hilbert_space()
         return self.wavefunction(space) / self.partition_function(space).sqrt()
 
-
     def log_likelihood(self, data):
-
-        pass
+        return self.effective_energy(data).sum().item() / len(data)
