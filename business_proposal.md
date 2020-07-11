@@ -29,3 +29,4 @@
     * 3M 
 
 ## Step 4: Prepare a 90 second video explaining the value proposition of your innovation to this potential customer in non-technical language
+Discovering new materials is a daunting task. It's labour extensive and requires a lot of lab time and resources. We are a multidisciplinary team of programmers, physicists, and engineers who are passionate about helping companies to develop their own new materials with outstanding properties. By combining the best of quantum simulation with machine learning, we have developed the most advanced tool to design new materials and generate their atomic structure. Our approach provides your company with a powerful innovative way to design new materials faster, cheaper, and more effectively. 
