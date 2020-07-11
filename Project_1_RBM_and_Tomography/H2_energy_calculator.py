@@ -4,7 +4,7 @@ import torch
 def find_sample_frequency(samples):
     freq = []
     basis = np.array([[0.0, 0.0], [0.0, 1.0], [1.0, 0.0], [1.0, 1.0]])
-    basis = torch.from_numpy(basis)   
+    basis = torch.from_numpy(basis).to(samples)
  
     for b in basis:
         l = 0
@@ -20,7 +20,6 @@ def energy_from_freq(samples, coeff):
     
     diag = c1*one(f) + c2*Z0(f) + c3*Z1(f) + c4*Z0Z1(f) 
     off_diag = -c5*(2*np.sqrt(f)[[1,2]].prod() + 2*np.sqrt(f)[[0,3]].prod()) - c5*(2*np.sqrt(f)[[1,2]].prod() - 2*np.sqrt(f)[[0,3]].prod())
-
     return diag + off_diag
 
 def one(freq):
