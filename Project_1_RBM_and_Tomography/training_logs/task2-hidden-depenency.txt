@@ -1,0 +1,11 @@
+Final energy difference for n_h =  1  :  6.194117809332766e-05 at epoch  450
+Final energy difference for n_h =  2  :  7.664313276301016e-05 at epoch  650
+Final energy difference for n_h =  3  :  3.6190060799690116e-05 at epoch  150
+Final energy difference for n_h =  4  :  2.98573598875862e-05 at epoch  850
+Final energy difference for n_h =  5  :  0.00011180820903788913 at epoch  450
+Final energy difference for n_h =  6  :  6.761293357637754e-05 at epoch  500
+Final energy difference for n_h =  7  :  0.00012659583250318462 at epoch  1000
+Final energy difference for n_h =  8  :  0.00011517188367449194 at epoch  400
+Final energy difference for n_h =  9  :  5.0068881665588094e-05 at epoch  300
+
+Is there a theoretical background to actively chose the least square for loss part of constrained VQE? e.g. MAE or huber loss etc will be possible.

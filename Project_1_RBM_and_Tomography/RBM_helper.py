@@ -12,6 +12,23 @@ from math import ceil
 
 class RBM():
 
+    @classmethod
+    def from_weights(cls, weights_dir):
+        pathdir = Path(weights_dir)
+        visible_bias = torch.load(pathdir / 'visible_bias.pt')
+        hidden_bias = torch.load(pathdir / 'hidden_bias.pt')
+        n_vis = visible_bias.shape[0]
+        n_hin = hidden_bias.shape[0]
+        rbm = RBM(n_vis=n_vis, n_hin=n_hin)
+        rbm.load_params(weights_dir)
+        return rbm
+
+    def to(self, param):
+        self.weights = self.weights.to(param)
+        self.hidden_bias = self.hidden_bias.to(param)
+        self.visible_bias = self.visible_bias.to(param)
+        return self
+
     def __init__(self, n_vis, n_hin):
         super(RBM, self).__init__()
         self.n_vis = n_vis
@@ -159,3 +176,12 @@ class RBM():
     def psi(self):
         space = self.generate_hilbert_space()
         return self.wavefunction(space) / self.partition_function(space).sqrt()
+
+    def free_energy(self, v):
+        return (- torch.dot(v, self.visible_bias) -
+                torch.logaddexp(0, torch.dot(v, self.weights.T) + self.hidden_bias).sum(axis=1))
+
+    def pseudo_likelihood(self, ground_truth, samples):
+        fe = self.free_energy(ground_truth)
+        fe_ = self.free_energy(samples)
+        return samples.shape[1] * torch.log_logistic(fe_ - fe)
