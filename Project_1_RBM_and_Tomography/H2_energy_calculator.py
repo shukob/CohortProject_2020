@@ -4,7 +4,7 @@ import torch
 def find_sample_frequency(samples):
     freq = []
     basis = np.array([[0.0, 0.0], [0.0, 1.0], [1.0, 0.0], [1.0, 1.0]])
-    basis = torch.from_numpy(basis)   
+    basis = torch.from_numpy(basis).to(samples)
  
     for b in basis:
         l = 0

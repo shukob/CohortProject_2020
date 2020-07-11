@@ -177,11 +177,7 @@ class RBM():
         space = self.generate_hilbert_space()
         return self.wavefunction(space) / self.partition_function(space).sqrt()
 
-    def free_energy(self, v):
-        return (- torch.dot(v, self.visible_bias) -
-                torch.logaddexp(0, torch.dot(v, self.weights.T) + self.hidden_bias).sum(axis=1))
 
-    def pseudo_likelihood(self, ground_truth, samples):
-        fe = self.free_energy(ground_truth)
-        fe_ = self.free_energy(samples)
-        return samples.shape[1] * torch.log_logistic(fe_ - fe)
+    def log_likelihood(self, data):
+
+        pass
