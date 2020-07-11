@@ -1,3 +1,5 @@
+from pathlib import Path
+
 import numpy as np
 import torch
 from itertools import chain
@@ -7,22 +9,40 @@ from torch.nn.utils import parameters_to_vector
 from itertools import chain
 from math import ceil
 
+
 class RBM():
+
+    @classmethod
+    def from_weights(cls, weights_dir):
+        pathdir = Path(weights_dir)
+        visible_bias = torch.load(pathdir / 'visible_bias.pt')
+        hidden_bias = torch.load(pathdir / 'hidden_bias.pt')
+        n_vis = visible_bias.shape[0]
+        n_hin = hidden_bias.shape[0]
+        rbm = RBM(n_vis=n_vis, n_hin=n_hin)
+        rbm.load_params(weights_dir)
+        return rbm
+
+    def to(self, param):
+        self.weights = self.weights.to(param)
+        self.hidden_bias = self.hidden_bias.to(param)
+        self.visible_bias = self.visible_bias.to(param)
+        return self
 
     def __init__(self, n_vis, n_hin):
         super(RBM, self).__init__()
         self.n_vis = n_vis
         self.n_hin = n_hin
-        
+
         self.initialize_parameters()
 
     def initialize_parameters(self):
         self.weights = torch.randn(
-            self.n_hin, 
-            self.n_vis, 
+            self.n_hin,
+            self.n_vis,
             dtype=torch.double
         ) / np.sqrt(self.n_vis)
-        
+
         self.visible_bias = torch.zeros(self.n_vis, dtype=torch.double)
         self.hidden_bias = torch.zeros(self.n_hin, dtype=torch.double)
 
@@ -45,17 +65,17 @@ class RBM():
     def prob_v_given_h(self, h):
         return (
             torch.matmul(h, self.weights.data, out=None)
-            .add_(self.visible_bias.data)
-            .sigmoid_()
-            .clamp_(min=0, max=1)
+                .add_(self.visible_bias.data)
+                .sigmoid_()
+                .clamp_(min=0, max=1)
         )
 
     def prob_h_given_v(self, v):
         return (
             torch.matmul(v, self.weights.data.t(), out=None)
-            .add_(self.hidden_bias.data)
-            .sigmoid_()
-            .clamp_(min=0, max=1)
+                .add_(self.hidden_bias.data)
+                .sigmoid_()
+                .clamp_(min=0, max=1)
         )
 
     def sample_v_given_h(self, h):
@@ -80,7 +100,7 @@ class RBM():
 
     def wavefunction(self, v):
         return (-self.effective_energy(v)).exp().sqrt()
-    
+
     def gradients(self, batch):
         grads_W, grads_vb, grads_hb = self.effective_energy_gradient(batch)
         grads_W /= float(batch.shape[0])
@@ -100,11 +120,11 @@ class RBM():
         grads_hb -= neg_grads_hb
 
         return grads_W, grads_vb, grads_hb
-  
+
     def shuffle_data(self, data, batch_size):
         permutation = torch.randperm(data.shape[0])
         data = [
-            data[batch_start : (batch_start + batch_size)]
+            data[batch_start: (batch_start + batch_size)]
             for batch_start in range(0, len(data), batch_size)
         ]
         return data
@@ -112,20 +132,35 @@ class RBM():
     def params(self):
         return self.weights, self.visible_bias, self.hidden_bias
 
+    def save_params(self, dir):
+        pathdir = Path(dir)
+        if not pathdir.exists():
+            pathdir.mkdir(parents=True)
+
+        torch.save(self.weights, pathdir / 'weights.pt')
+        torch.save(self.visible_bias, pathdir / 'visible_bias.pt')
+        torch.save(self.hidden_bias, pathdir / 'hidden_bias.pt')
+
+    def load_params(self, dir):
+        pathdir = Path(dir)
+        self.weights = torch.load(pathdir / 'weights.pt')
+        self.visible_bias = torch.load(pathdir / 'visible_bias.pt')
+        self.hidden_bias = torch.load(pathdir / 'hidden_bias.pt')
+
     def update_params(self, grads, lr):
-        self.weights -= lr*grads[0]
-        self.visible_bias -= lr*grads[1]
-        self.hidden_bias -= lr*grads[2]
+        self.weights -= lr * grads[0]
+        self.visible_bias -= lr * grads[1]
+        self.hidden_bias -= lr * grads[2]
 
     def train(self, input_data, k=10, batch_size=100, lr=0.01):
-          
+
         num_batches = ceil(input_data.shape[0] / batch_size)
         pos_batches = self.shuffle_data(input_data, batch_size)
         neg_batches = self.shuffle_data(input_data, batch_size)
 
         for b in range(num_batches):
             all_gradients = self.compute_batch_gradients(k, pos_batches[b], neg_batches[b])
-            
+
             self.update_params(all_gradients, lr)
 
     def partition_function(self, space):
@@ -141,3 +176,7 @@ class RBM():
     def psi(self):
         space = self.generate_hilbert_space()
         return self.wavefunction(space) / self.partition_function(space).sqrt()
+
+
+    def log_likelihood(self, data):
+        return self.effective_energy(data).sum().item() / len(data)
