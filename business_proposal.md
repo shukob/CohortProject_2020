@@ -1,5 +1,8 @@
 # Business Proposal
 
+## Video Proposal
+https://drive.google.com/file/d/11DmvVSqwCzWRNd03YsGNd_kPaebZCeu6/view?usp=sharing
+
 ## Technical Summary 
 ### For more information, please see the included notes.md file
 
