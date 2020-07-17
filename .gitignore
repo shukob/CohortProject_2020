@@ -4,3 +4,6 @@
 /*.svg
 .idea
 *.pyc
+*.hdf5
+*.out
+*.clean
