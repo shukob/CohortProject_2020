@@ -32,7 +32,7 @@ def get_qubit_hamiltonian(mol, geometry, basis, charge=0, multiplicity=1, qubit_
     else:
         raise(ValueError(qubit_transf, 'Unknown transformation specified'))
 
-    return remove_complex(hamq), mol
+    return remove_complex(hamq)
 
 def remove_complex(H : QubitOperator, tiny=1e-8):
     '''
