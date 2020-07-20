@@ -32,7 +32,7 @@ def get_qubit_hamiltonian(mol, geometry, basis, charge=0, multiplicity=1, qubit_
     else:
         raise(ValueError(qubit_transf, 'Unknown transformation specified'))
 
-    return remove_complex(hamq)
+    return remove_complex(hamq), mol
 
 def remove_complex(H : QubitOperator, tiny=1e-8):
     '''
@@ -309,7 +309,7 @@ def get_qwc_group(H : QubitOperator):
         qwc_list_idx += 1
     return qwc_list
 
-def obtain_PES(molecule, bond_lengths, basis, method):
+def obtain_PES(molecule, bond_lengths, basis, method, print_log=True):
 
     if method.lower() not in ['ccsd', 'cisd', 'fci', 'hf']:
         raise(ValueError("Method not recognized, implemented methods are 'ccsd', 'cisd', 'fci', 'hf'."))
@@ -334,7 +334,8 @@ def obtain_PES(molecule, bond_lengths, basis, method):
                 else:
                     result = mol_data.compute_energy(method)
 
-                print("E = {} Eh".format(result))
+                if print_log:
+                    print("E = {} Eh".format(result))
 
                 energies[i] = result
                 obtained_e = True
