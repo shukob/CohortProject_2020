@@ -10,7 +10,7 @@ FC_fast : $(objects)
 	$(CC) -o FCF_calc $(objects)  \
 -framework Accelerate -L/usr/local/lib -lgfortran
 $(objects): $(dependencies)
-.cxx.o:
+.cpp.o:
 	$(CC) -c $(options) $<
 .c.o:
 	$(cc) -c -O2 $<
