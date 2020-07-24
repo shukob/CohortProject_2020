@@ -130,13 +130,16 @@ double const speedofl = 137.0359895;
 int main(int argc, char **argv) {
     if (argc != 3) {
         std::cerr << "usage: " << argv[0]
-                  << " <using nomal modes: 0=yes; 1=No (using Force constants instead)> <input filename>" << std::endl;
+                  << " <using normal modes: 1=yes; 0=No (using Force constants instead)> <input filename>" << std::endl;
         exit(0);
     }
     int usingnormalmodes = atoi(argv[1]);
     std::strstream filenamein;
     filenamein << argv[2] << std::ends;
     std::ifstream file(filenamein.str());
+
+    std::string prefix = usingnormalmodes ? "-normal-mode-constraint" : "-force-constraint";
+    std::string out_file_prefix = filenamein.str() + prefix;
 
 
     int i, j, k, l, lp, m, n, natom;
@@ -181,7 +184,7 @@ int main(int argc, char **argv) {
         if (i == 1) {
             for (l = 0; l < (3 * natom); l++) file >> geoc(l);
         }
-        if (usingnormalmodes == 0) {
+        if (usingnormalmodes) {
             for (j = 0; j < (3 * natom - 6); j++) {
                 if (i == 0) {
                     file >> omega(j);
@@ -326,7 +329,7 @@ int main(int argc, char **argv) {
     /* perform orthogonalisation or not? */
     char ortho_of_S = 'N';
     char ortho_of_L;
-    if (usingnormalmodes == 0)
+    if (usingnormalmodes)
         ortho_of_L = 'Y';
     else
         ortho_of_L = 'N';
@@ -349,7 +352,7 @@ int main(int argc, char **argv) {
 
     // massweight the force constant matrices and diagonalize
 
-    if (usingnormalmodes != 0) {
+    if (!usingnormalmodes) {
 
         matrix mwHn = invsqmass * FCMn * invsqmass;
         matrix mwHc = invsqmass * FCMc * invsqmass;
@@ -358,7 +361,7 @@ int main(int argc, char **argv) {
         vector NMn = diag(mwHn);
         vector NMc = diag(mwHc);
         std::strstream vibreportoutname;
-        vibreportoutname << filenamein.str() << ".vibanalysis.stat" << std::ends;
+        vibreportoutname << out_file_prefix << ".vibanalysis.stat" << std::ends;
         std::ofstream vibreportout(vibreportoutname.str());
 
         vibreportout << "mode";
@@ -554,12 +557,13 @@ int main(int argc, char **argv) {
     matrix orthoL = transpose(Lmat) * Lmat;
     matrix orthoLion = transpose(Lmation) * Lmation;
 
+
     /*  output of the S matrix */
     std::strstream Smatrixname;
-    Smatrixname << filenamein.str() << ".S.mat" << std::ends;
+    Smatrixname << out_file_prefix << ".S.mat" << std::ends;
     std::ofstream Smatrix(Smatrixname.str());
     std::strstream OrSname;
-    OrSname << filenamein.str() << ".OrS.mat" << std::ends;
+    OrSname << out_file_prefix << ".OrS.mat" << std::ends;
     std::ofstream OrS(OrSname.str());
     Smatrix << "S" << std::endl;
     OrS << "S^t S" << std::endl;
@@ -597,7 +601,7 @@ int main(int argc, char **argv) {
     //vector dvec=inverseofLmation*Rvecmass;
     vector dvec = transpose(Lmation) * Rvecmass;
     std::strstream dvecfilename;
-    dvecfilename << filenamein.str() << ".d.vec" << std::ends;
+    dvecfilename << out_file_prefix << ".d.vec" << std::ends;
     std::ofstream dvecfile(dvecfilename.str());
     for (i = 0; i < (3 * natom - 6); i++) {
         dvecfile.precision(2);
@@ -686,12 +690,13 @@ int main(int argc, char **argv) {
 
     std::strstream specname;
     std::strstream specfname;
-    specname << filenamein.str() << ".sticks.out" << std::ends;
-    specfname << filenamein.str() << ".spec.out" << std::ends;
+    specname << out_file_prefix << ".sticks.out" << std::ends;
+    specfname << out_file_prefix << ".spec.out" << std::ends;
     std::ofstream spec(specname.str());
     std::ofstream specf(specfname.str());
     std::strstream fcfilename;
-    fcfilename << filenamein.str() << ".fc.tex" << std::ends;
+    fcfilename << out_file_prefix << ".fc.tex" << std::ends;
+    std::cout << fcfilename.str() << std::endl;
     std::ofstream fcfile(fcfilename.str());
     fcfile << "\\documentstyle[preprint,aps]{revtex}" << std::endl;
     fcfile << "\\begin{document}" << std::endl;
@@ -1446,7 +1451,7 @@ int main(int argc, char **argv) {
     /* combinations */
     /* stat file */
     std::strstream statname;
-    statname << filenamein.str() << ".spectra.stat" << std::ends;
+    statname << out_file_prefix << ".spectra.stat" << std::ends;
     std::ofstream stat(statname.str());
     if (Units == 'A') stat << "Geometries in Angstroms" << std::endl;
     if (Units == 'B') stat << "Geometries in Bohrs" << std::endl;

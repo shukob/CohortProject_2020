@@ -43,7 +43,7 @@ class FCFSpec():
         self.omega_p = self.invcm_to_invEh * 2322.0
         self.x_eq_0 = self.ang_to_bohr * 0.742
         self.x_eq_p = self.ang_to_bohr * 1.057
-        self.ionization_energy = self.invcm_to_invEh * 124418.457
+        self.ionization_energy = 124418.457
 
     def initialize_integration_params(self):
         # to calculate overlap integral numerically
