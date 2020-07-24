@@ -3,6 +3,7 @@ import numpy as np
 from numpy.polynomial.hermite import hermval
 from numpy.polynomial.legendre import leggauss
 
+
 class FCFSpec():
     # convention: hbar = 1.0  
     '''
@@ -22,57 +23,57 @@ class FCFSpec():
           reference.
         - Spectral positions, SP
     '''
- 
+
     def __init__(self, n_0, n_p):
         self.n_0 = n_0
         self.n_p = n_p
-        
+
         # unit analysis
-        self.invcm_to_invEh = 1.0/219474.63136320
+        self.invcm_to_invEh = 1.0 / 219474.63136320
         self.amu_to_me = 1822.888486209
-        self.ang_to_bohr = 1.88973     
-        
+        self.ang_to_bohr = 1.88973
+
         self.initialize_constants()
         self.initialize_integration_params()
 
     def initialize_constants(self):
         # hard set for H2 (0) and H2+ (p)
-        self.reduced_mass = self.amu_to_me*1.00784/2.
-        self.omega_0 = self.invcm_to_invEh*4401.0
-        self.omega_p = self.invcm_to_invEh*2322.0
-        self.x_eq_0 = self.ang_to_bohr*0.742
-        self.x_eq_p = self.ang_to_bohr*1.057
-        self.ionization_energy = self.invcm_to_invEh*124418.457
+        self.reduced_mass = self.amu_to_me * 1.00784 / 2.
+        self.omega_0 = self.invcm_to_invEh * 4401.0
+        self.omega_p = self.invcm_to_invEh * 2322.0
+        self.x_eq_0 = self.ang_to_bohr * 0.742
+        self.x_eq_p = self.ang_to_bohr * 1.057
+        self.ionization_energy = self.invcm_to_invEh * 124418.457
 
     def initialize_integration_params(self):
         # to calculate overlap integral numerically
-        self.R_min = self.ang_to_bohr*(-5.0)
-        self.R_max = self.ang_to_bohr*5.0
+        self.R_min = self.ang_to_bohr * (-5.0)
+        self.R_max = self.ang_to_bohr * 5.0
         self.quadrature_points = 5000
 
     def H2_energy(self, n):
-        return self.omega_0*(n + 0.5) / self.invcm_to_invEh
+        return self.omega_0 * (n + 0.5) / self.invcm_to_invEh
 
     def H2p_energy(self, n):
-        return self.omega_p*(n + 0.5) / self.invcm_to_invEh + self.ionization_energy
+        return self.omega_p * (n + 0.5) / self.invcm_to_invEh + self.ionization_energy
 
     def H2_psi(self, x, n):
         # n'th harmonic wavefunction for H2  
-        tmp = self.reduced_mass*self.omega_0
-        prefactor = pow(tmp / np.pi, 0.25) / np.sqrt(2.0**n * factorial(n))
-        coeffs = np.zeros(n+1, float)
+        tmp = self.reduced_mass * self.omega_0
+        prefactor = pow(tmp / np.pi, 0.25) / np.sqrt(2.0 ** n * factorial(n))
+        coeffs = np.zeros(n + 1, float)
         coeffs[n] = 1.0
-        hermpoly = hermval(np.sqrt(tmp)*(x - self.x_eq_0), coeffs)
-        return prefactor*np.exp(-0.5*tmp*(x - self.x_eq_0)**2)*hermpoly
-    
+        hermpoly = hermval(np.sqrt(tmp) * (x - self.x_eq_0), coeffs)
+        return prefactor * np.exp(-0.5 * tmp * (x - self.x_eq_0) ** 2) * hermpoly
+
     def H2p_psi(self, x, n):
         # n'th harmonic wavefunction for H2+  
-        tmp = self.reduced_mass*self.omega_p
-        prefactor = pow(tmp / np.pi, 0.25) / np.sqrt(2.0**n * factorial(n))
-        coeffs = np.zeros(n+1, float)
+        tmp = self.reduced_mass * self.omega_p
+        prefactor = pow(tmp / np.pi, 0.25) / np.sqrt(2.0 ** n * factorial(n))
+        coeffs = np.zeros(n + 1, float)
         coeffs[n] = 1.0
-        hermpoly = hermval(np.sqrt(tmp)*(x - self.x_eq_p), coeffs)
-        return prefactor*np.exp(-0.5*tmp*(x - self.x_eq_p)**2)*hermpoly
+        hermpoly = hermval(np.sqrt(tmp) * (x - self.x_eq_p), coeffs)
+        return prefactor * np.exp(-0.5 * tmp * (x - self.x_eq_p) ** 2) * hermpoly
 
     def spectrum_analysis(self):
         # calculate FCFs
@@ -80,31 +81,30 @@ class FCFSpec():
 
         all_data = []
 
-        for k in range(self.n_0+1):
+        reference = None
+        for k in range(self.n_0 + 1):
             E0 = self.H2_energy(k)
-            for l in range(self.n_p+1):
+            for l in range(self.n_p + 1):
                 Ep = self.H2p_energy(l)
 
                 overlap = 0
                 for p in range(self.quadrature_points):
-                    
-                    new_point = 0.5*(self.R_max - self.R_min)*GLquad[0][p] + 0.5*(self.R_max + self.R_min)
-                    new_weight = 0.5*(self.R_max - self.R_min)*GLquad[1][p]
+                    new_point = 0.5 * (self.R_max - self.R_min) * GLquad[0][p] + 0.5 * (self.R_max + self.R_min)
+                    new_weight = 0.5 * (self.R_max - self.R_min) * GLquad[1][p]
                     overlap += self.H2_psi(new_point, k) * self.H2p_psi(new_point, l) * new_weight
 
-                FCF = overlap**2.
-        
-                # n_0   n_p   FCF
-                data = np.zeros(3)
+                FCF = overlap ** 2.
 
-                if (k==0 and l==0):
+                # n_0   n_p   FCF
+
+                if not reference:
                     reference = FCF
-                
+
                 FCF /= reference
 
-                data[0] = k
-                data[1] = l
-                data[2] = FCF
+                data = np.array([
+                    k, l, FCF, Ep - E0
+                ], dtype=np.float)
 
                 all_data.append(data)
 

@@ -7,3 +7,8 @@
 *.hdf5
 *.out
 *.clean
+*.o
+FCF_calc
+*.vec
+*.mat
+*.stat

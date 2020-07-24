@@ -1,29 +1,10 @@
-#.SUFFIXES: .o .c .f .cxx .cpp
-## DEBUG option remove for efficiency
-#CC=/usr/local/Cellar/gcc/10.1.0/bin/g++-10
-#cc=/usr/local/Cellar/gcc/10.1.0/bin/gcc-10
-#FC=/usr/local/Cellar/gcc/10.1.0/bin/gfortran-10
-#options= -DDUSHQUICK -DBLAS -DLINUX -O2 -Wno-deprecated
-#objects=FC.o matvec.o prod.o
-#dependencies=matvec.h
-#FC_fast : $(objects)
-#	$(CC) -o FCF_calc $(objects)  \
-#-framework Accelerate -L/usr/local/Cellar/gcc/10.1.0/lib/gcc/10 -lgfortran -lstdc++
-#$(objects): $(dependencies)
-#.cpp.o:
-#	$(CC) -c $(options) $<
-#.c.o:
-#	$(cc) -c -O2 $<
-#.f.o:
-#	$(FC) -c -O2 $<
-
 .SUFFIXES: .o .c .f .cxx .cpp
 # DEBUG option remove for efficiency
 CC=clang
 cc=clang
-FC=gfortran
+FC=/usr/local/Cellar/gcc/10.1.0/bin/gfortran
 options= -DDUSHQUICK -DBLAS -DLINUX -O2 -Wno-deprecated
-objects=FC.o matvec.o prod.o
+objects=FC2.o matvec.o prod.o
 dependencies=matvec.h
 FC_fast : $(objects)
 	$(CC) -o FCF_calc $(objects)  \
@@ -35,3 +16,6 @@ $(objects): $(dependencies)
 	$(cc) -c -O2 $<
 .f.o:
 	$(FC) -c -O2 $<
+
+clean:
+	rm -f *.o
