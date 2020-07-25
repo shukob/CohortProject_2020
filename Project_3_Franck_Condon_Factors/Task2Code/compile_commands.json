@@ -1,0 +1,30 @@
+[
+ {
+  "directory": "/Users/shukob/Works/CDL/CohortProject_2020/Project_3_Franck_Condon_Factors/Task2Code",
+  "arguments": [
+   "clang",
+   "-c",
+   "-DDUSHQUICK",
+   "-DBLAS",
+   "-DLINUX",
+   "-O2",
+   "-Wno-deprecated",
+   "FC2.cpp"
+  ],
+  "file": "FC2.cpp"
+ },
+ {
+  "directory": "/Users/shukob/Works/CDL/CohortProject_2020/Project_3_Franck_Condon_Factors/Task2Code",
+  "arguments": [
+   "clang",
+   "-c",
+   "-DDUSHQUICK",
+   "-DBLAS",
+   "-DLINUX",
+   "-O2",
+   "-Wno-deprecated",
+   "matvec.cpp"
+  ],
+  "file": "matvec.cpp"
+ }
+]

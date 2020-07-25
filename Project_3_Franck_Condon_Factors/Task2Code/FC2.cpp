@@ -558,6 +558,8 @@ int main(int argc, char **argv) {
     matrix orthoLion = transpose(Lmation) * Lmation;
 
 
+
+
     /*  output of the S matrix */
     std::strstream Smatrixname;
     Smatrixname << out_file_prefix << ".S.mat" << std::ends;
@@ -569,11 +571,9 @@ int main(int argc, char **argv) {
     OrS << "S^t S" << std::endl;
     for (i = 0; i < (3 * natom - 6); i++) {
         for (j = 0; j < (3 * natom - 6); j++) {
-            Smatrix.precision(2);
-;
+            Smatrix.precision(2);;
             Smatrix << Smat(i, j) << " ";
-            OrS.precision(2);
-;
+            OrS.precision(2);;
             OrS << orthoS(i, j) << " ";
         }
         Smatrix << std::endl;
@@ -582,8 +582,7 @@ int main(int argc, char **argv) {
     OrS << "L^t L" << std::endl;
     for (i = 0; i < (3 * natom - 6); i++) {
         for (j = 0; j < (3 * natom - 6); j++) {
-            OrS.precision(2);
-;
+            OrS.precision(2);;
             OrS << orthoL(i, j) << " ";
         }
         OrS << std::endl;
@@ -591,8 +590,7 @@ int main(int argc, char **argv) {
     OrS << "L^t L (ion)" << std::endl;
     for (i = 0; i < (3 * natom - 6); i++) {
         for (j = 0; j < (3 * natom - 6); j++) {
-            OrS.precision(2);
-;
+            OrS.precision(2);;
             OrS << orthoLion(i, j) << " ";
         }
         OrS << std::endl;
@@ -626,8 +624,7 @@ int main(int argc, char **argv) {
     Smatrix << "J" << std::endl;
     for (i = 0; i < (3 * natom - 6); i++) {
         for (j = 0; j < (3 * natom - 6); j++) {
-            Smatrix.precision(2);
-;
+            Smatrix.precision(2);;
             Smatrix << JJ(i, j) << " ";
         }
         Smatrix << std::endl;
@@ -636,8 +633,7 @@ int main(int argc, char **argv) {
     Smatrix << "P" << std::endl;
     for (i = 0; i < (3 * natom - 6); i++) {
         for (j = 0; j < (3 * natom - 6); j++) {
-            Smatrix.precision(2);
-;
+            Smatrix.precision(2);;
             Smatrix << Pmat(i, j) << " ";
         }
         Smatrix << std::endl;
@@ -645,8 +641,7 @@ int main(int argc, char **argv) {
     Smatrix << "Q" << std::endl;
     for (i = 0; i < (3 * natom - 6); i++) {
         for (j = 0; j < (3 * natom - 6); j++) {
-            Smatrix.precision(2);
-;
+            Smatrix.precision(2);;
             //Smatrix<<Qmat(i,j)<<" ";
             Smatrix << (II + transpose(JJ) * JJ)(i, j) << " ";
         }
@@ -655,8 +650,7 @@ int main(int argc, char **argv) {
     Smatrix << "R" << std::endl;
     for (i = 0; i < (3 * natom - 6); i++) {
         for (j = 0; j < (3 * natom - 6); j++) {
-            Smatrix.precision(2);
-;
+            Smatrix.precision(2);;
             Smatrix << Rmat(i, j) << " ";
         }
         Smatrix << std::endl;
@@ -664,11 +658,43 @@ int main(int argc, char **argv) {
     Smatrix << "delta" << std::endl;
 
     for (i = 0; i < (3 * natom - 6); i++) {
-        Smatrix.precision(2);
-;
+        Smatrix.precision(2);;
         Smatrix << delta(i) << " ";
     }
     Smatrix << std::endl;
+
+
+    {
+        //Create GBS input file
+        std::string gbs_name = out_file_prefix + ".gbs.in";
+        std::ofstream gbs_out(gbs_name);
+        gbs_out << natom << std::endl;
+
+        //Normal frequency
+        for (int i = 0; i < N; i++) {
+            gbs_out << omega(i) * hatocm << std::endl;
+        }
+
+        //Ionized frequency
+        for (int i = 0; i < N; i++) {
+            gbs_out << omegaion(i) * hatocm << std::endl;
+        }
+
+        //Duschinsky Matrix
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                gbs_out << Smat(i, j) << std::endl;
+            }
+        }
+
+        //Displacement vector
+        for (int i = 0; i < N; i++) {
+            gbs_out << delta(i) << std::endl;
+        }
+        gbs_out.flush();
+        gbs_out.close();
+        //End GBS input file output
+    }
 
     /*  <0|0> transition  */
     for (j = 0; j < (3 * natom - 6); j++) int00 *= (omegaion(j) / omega(j));
@@ -1166,7 +1192,7 @@ int main(int argc, char **argv) {
                 for (model = 0; model < (numberofactivemodes); model++) {
                     /* <ijk|l> */
 #ifdef DUSHQUICK
-                    if ((model==modei) || (model==modej) || (model==modek) )
+                    if ((model == modei) || (model == modej) || (model == modek))
 #endif
                     {
                         ni = cationquanta / 3 + 1;
@@ -1262,7 +1288,8 @@ int main(int argc, char **argv) {
                     }
                     for (modem = (model + 1); modem < (numberofactivemodes); modem++) {
 #ifdef DUSHQUICK
-                        if ((model==modei && modem==modej) || (model==modei && modem==modek) || (model==modej && modem==modek) )
+                        if ((model == modei && modem == modej) || (model == modei && modem == modek) ||
+                            (model == modej && modem == modek))
 #endif
                         {
                             /* <ijk|lm> */
@@ -1374,7 +1401,7 @@ int main(int argc, char **argv) {
                             nn = neutralquanta / 3 + 1;
 
 #ifdef DUSHQUICK
-                            if (modei==model && modej==modem && modek==moden)
+                            if (modei == model && modej == modem && modek == moden)
 #endif
                             {
                                 vector t = triplelmn(ni, nj, nk, nl, nm, nn,
