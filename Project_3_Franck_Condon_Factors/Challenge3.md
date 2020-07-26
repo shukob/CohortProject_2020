@@ -2,7 +2,7 @@
 
 ##Difference between methods for FCF calculations
 
-Calculating FCF is equal to calculate transition probability between different modes, which is an overlap integral of wave functions of different states.
+Calculating FCF is equal to calculate transition probability between different vibrational modes, which is an overlap integral of wave functions of different states.
 We approximate the system is to be a multi variable harmonic oscillator following Franck-Condon principle. 
 
 ### a) Hermite polynomials
