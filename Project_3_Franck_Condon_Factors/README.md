@@ -22,9 +22,9 @@
 
 ## Further Challenges:
 
-- Calculate FCF by Loop Hafnian ([Notebook]())
-- Calculate FCF of H2O ([Notebook]())
-- Discussion of 3 methods to calculate FCF ([Markdown]())
+- Calculate FCF by Loop Hafnian ([Notebook](Challenge1.ipynb))
+- Calculate FCF of H2O ([Notebook](Challenge2.ipynb))
+- Discussion of 3 methods to calculate FCF ([Markdown](Challenge3.md))
 - Discussion of licenses ([Markdown](Challenge4.md))
 
 
