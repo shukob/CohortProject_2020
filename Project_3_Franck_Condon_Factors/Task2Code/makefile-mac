@@ -1,4 +1,4 @@
-.SUFFIXES: .o .c .f .cxx .cpp
+.SUFFIXES: .o .c .f .cxx .cpp .f90
 # DEBUG option remove for efficiency
 CC=clang
 cc=clang
@@ -14,7 +14,7 @@ $(objects): $(dependencies)
 	$(CC) -c $(options) $<
 .c.o:
 	$(cc) -c -O2 $<
-.f.o:
+.f90.o:
 	$(FC) -c -O2 $<
 
 clean:

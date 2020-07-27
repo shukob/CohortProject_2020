@@ -17,6 +17,6 @@ Higher precision and richer feature of vibration spectrometers is always needed.
 - LightMachinery
 
 ## Step 4: Prepare a 90 second video explaining the value proposition of your innovation to this potential customer in non-technical language
-
-
-
+Please see dropbox [link](https://www.dropbox.com/s/5cc0jmb83ysicoi/cdl-all.mov?dl=0)
+- References 
+  - Yamamoto, IP Strategies for Startups, Keiso-Shobo, 2020

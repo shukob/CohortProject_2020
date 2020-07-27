@@ -15,8 +15,10 @@ Apache 2.0 is a generous license which permits owners of the software that uses 
 
 Making a software licensed under public domain have several merits for commercial companies:
 - It promotes the use of the software, thus making community around it. If a commercial company have other source of profit, which depends on use of the software, making the community large directly benefits their income.
-- It is cheap compared to pertaining patents. It can prevent burden related to patents while holding technology protected against exclusive possession or plagiarism from rival company.
 - It can be a freemium model if the owner develops commercial premium version of it.
 - It will be a showcase of technical skill of the company.
 
 Private license are more likely to be used in a field where subtle technical details have great importance, such as chemistry or machinery. In those field, technical know-hows must not be disclosed even in a form of patent.
+
+## Opened & Closed Strategy
+Opened & Closed strategy is to be "opened" in the field where expansion of the market is needed, and be "closed" in the field where the profit must be secured. We have to figure out where is the  "core" of the business, then apply different licensing strategy based on the technology.

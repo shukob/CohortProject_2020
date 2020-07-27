@@ -179,7 +179,9 @@ int main(int argc, char **argv) {
         /*loop over species
       get geometries */
         if (i == 0) {
-            for (l = 0; l < (3 * natom); l++) file >> geon(l);
+            for (l = 0; l < (3 * natom); l++) {
+             file >> geon(l);
+            }
         }
         if (i == 1) {
             for (l = 0; l < (3 * natom); l++) file >> geoc(l);
@@ -188,15 +190,23 @@ int main(int argc, char **argv) {
             for (j = 0; j < (3 * natom - 6); j++) {
                 if (i == 0) {
                     file >> omega(j);
+                    std::cout << omega(j) << std::endl;
                     omega(j) /= hatocm;
                 }
                 if (i == 1) {
                     file >> omegaion(j);
+                    std::cout << omegaion(j) << std::endl;
                     omegaion(j) /= hatocm;
                 }
                 for (k = 0; k < (3 * natom); k++) {
-                    if (i == 0) file >> Lmat(k, j);
-                    if (i == 1) file >> Lmation(k, j);
+                    if (i == 0) {
+                        file >> Lmat(k, j);
+                        std::cout << Lmat(k, j) << std::endl;
+                    }
+                    if (i == 1) {
+                        file >> Lmation(k, j);
+                        std::cout << Lmation(k, j) << std::endl;
+                    }
                 }
             }
         } else {
@@ -353,7 +363,6 @@ int main(int argc, char **argv) {
     // massweight the force constant matrices and diagonalize
 
     if (!usingnormalmodes) {
-
         matrix mwHn = invsqmass * FCMn * invsqmass;
         matrix mwHc = invsqmass * FCMc * invsqmass;
         mwHn = .5 * (mwHn + transpose(mwHn));

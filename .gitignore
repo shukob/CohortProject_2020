@@ -12,3 +12,5 @@ FCF_calc
 *.vec
 *.mat
 *.stat
+Project_3_Franck_Condon_Factors/Task2Code/cmake-build-debug
+.run
