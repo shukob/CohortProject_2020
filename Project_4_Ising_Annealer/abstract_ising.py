@@ -1,6 +1,5 @@
 import numpy as np
 from numba import jit
-from numba.experimental import jitclass
 
 
 class AbstractIsing:

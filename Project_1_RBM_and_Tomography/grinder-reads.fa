@@ -1,0 +1,40 @@
+>1 reference=NZ_WWKP01000014.1 position=complement(31592..31641) description="Enterobacteriaceae bacterium 10436wE5 NODE_44_length_60437_cov_31.882, whole genome shotgun sequence"
+GCAGGGTCTCGTTGCGCCACGCCGCTTCCCGCGCCTGGCTGATGGCGTCG
+>2 reference=NZ_WWKP01000054.1 position=complement(13391..13440) description="Enterobacteriaceae bacterium 10436wE5 NODE_85_length_32953_cov_4.62207, whole genome shotgun sequence"
+TAATATCACACCGTCTGAAACGCGGGTCGCCTATATCGATGGCGGCATTC
+>3 reference=NZ_WWKP01000045.1 position=complement(5351..5400) description="Enterobacteriaceae bacterium 10436wE5 NODE_75_length_37438_cov_4.18504, whole genome shotgun sequence"
+ACAACGTTGGCGATGATGCCACGCGATAATTTTTTAACGTCGGCGAATGG
+>4 reference=NZ_WWKP01000019.1 position=complement(7275..7324) description="Enterobacteriaceae bacterium 10436wE5 NODE_49_length_48155_cov_3.59351, whole genome shotgun sequence"
+CCTGCACGATTTGCAACATGCGTTCGGTGTTGCCTTCAATGTCGCCGACC
+>5 reference=NZ_WWKP01000009.1 position=complement(42788..42837) description="Enterobacteriaceae bacterium 10436wE5 NODE_33_length_81947_cov_5.01529, whole genome shotgun sequence"
+CGGCTGGAGGCGGAGACTCAGCTGTGGAGCATCCGGCAAAGCGTGCTGAA
+>6 reference=NZ_WWKP01000013.1 position=7087..7136 description="Enterobacteriaceae bacterium 10436wE5 NODE_43_length_61290_cov_30.8288, whole genome shotgun sequence"
+CTCGACGGCCATATCGTGCTGTCGCGCCGTCTGGCCGAAGCCGGGCACTA
+>7 reference=NZ_WWKP01000027.1 position=complement(39347..39396) description="Enterobacteriaceae bacterium 10436wE5 NODE_57_length_44304_cov_4.2305, whole genome shotgun sequence"
+CGACGGTGGCGTCAACCGGGGATACCCAGACGCGCTCGCCGCTGTTGCCG
+>8 reference=NZ_WWKP01000032.1 position=32864..32913 description="Enterobacteriaceae bacterium 10436wE5 NODE_62_length_42044_cov_3.31414, whole genome shotgun sequence"
+AGGGCGTCAGCCTGGAACAGCTGGCCGAAGCGACCACCGCCAACTTTTCA
+>9 reference=NZ_WWKP01000004.1 position=complement(157578..157627) description="Enterobacteriaceae bacterium 10436wE5 NODE_9_length_290419_cov_31.3064, whole genome shotgun sequence"
+TCCGCGCGCCTACTGGCAGGAGTGGCTCTCGTGGCCGGCCATTTTCGCCC
+>10 reference=NZ_WWKP01000050.1 position=21237..21286 description="Enterobacteriaceae bacterium 10436wE5 NODE_80_length_34397_cov_3.56668, whole genome shotgun sequence"
+ATGCAACTGCAAAACAAGTCTCTCATTGAACGTATCGTCCACGCCGTCGG
+>11 reference=NZ_WWKP01000026.1 position=complement(28207..28256) description="Enterobacteriaceae bacterium 10436wE5 NODE_56_length_44909_cov_4.40731, whole genome shotgun sequence"
+GATCGTTGATCATCGAATCCAGCCGCTGCGCTTCGGTTTCGATGCGCGCC
+>12 reference=NZ_WWKP01000093.1 position=complement(22611..22660) description="Enterobacteriaceae bacterium 10436wE5 NODE_131_length_22892_cov_3.44854, whole genome shotgun sequence"
+GCGTGATGATGGGCCATTGGGACAACCCGCTGATCGCCGCCGCTATCCCG
+>13 reference=NZ_WWKP01000008.1 position=172485..172534 description="Enterobacteriaceae bacterium 10436wE5 NODE_13_length_221718_cov_25.1993, whole genome shotgun sequence"
+ATACGCGTCTGCAACATCAGATCCCAGGTCGTGGTCAGTTCGCTTTGCTG
+>14 reference=NZ_WWKP01000007.1 position=185417..185466 description="Enterobacteriaceae bacterium 10436wE5 NODE_12_length_239555_cov_27.7844, whole genome shotgun sequence"
+TGATTATGCCGCCTCAGCCGATTGATCCATGGTTTTATGGCGGTCGTGGC
+>15 reference=NZ_WWKP01000002.1 position=180775..180824 description="Enterobacteriaceae bacterium 10436wE5 NODE_7_length_389046_cov_27.7822, whole genome shotgun sequence"
+GGCGTTCGGTATTAATCTTGATATGAACGCCGATAAATCGCGCCAGGCGC
+>16 reference=NZ_WWKP01000121.1 position=complement(4532..4581) description="Enterobacteriaceae bacterium 10436wE5 NODE_159_length_18541_cov_4.72923, whole genome shotgun sequence"
+CCAACTTCCTGCCGTCGGTGATCTGCGTGGCGCTGGTGCTGTGGATCGGC
+>17 reference=NZ_WWKP01000082.1 position=complement(7585..7634) description="Enterobacteriaceae bacterium 10436wE5 NODE_120_length_24768_cov_29.1686, whole genome shotgun sequence"
+AACCGAGGAAAATAATGTTATTGTATTTCATAATCTATTGTTCCTTAGCG
+>18 reference=NZ_WWKP01000058.1 position=15797..15846 description="Enterobacteriaceae bacterium 10436wE5 NODE_89_length_31482_cov_4.56033, whole genome shotgun sequence"
+TGATCGAACAACCGCAGATGGCCTGAGGCCGCTGCATGCTTTTGCGCCCG
+>19 reference=NZ_WWKP01000020.1 position=35235..35284 description="Enterobacteriaceae bacterium 10436wE5 NODE_50_length_47893_cov_4.4459, whole genome shotgun sequence"
+ATGCGCGGCAGGGAGGAGAGGGCGATTTCACCCAGCACGTCCGGGTTGGT
+>20 reference=NZ_WWKP01000007.1 position=141120..141169 description="Enterobacteriaceae bacterium 10436wE5 NODE_12_length_239555_cov_27.7844, whole genome shotgun sequence"
+GCTCTCCGCGCACCAGCCTTATGAACACTATCCAGAAATCATTCGTAAAG
